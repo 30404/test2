@@ -14,13 +14,7 @@ NOCACHE
 NOCYCLE;
 
 -- 트리거: insert 시 시퀀스로 id 자동 부여
-CREATE OR REPLACE TRIGGER review_trigger
-BEFORE INSERT ON movie_review
-FOR EACH ROW
-BEGIN
-SELECT review_seq.NEXTVAL INTO :NEW.id FROM dual;
-END;
-/
+
 
 
 
