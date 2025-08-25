@@ -17,8 +17,8 @@ section {
     height: calc(100vh - 160px);
     background-color: lightgray;
     display: flex;
-    justify-content: center;  /* 가로 가운데 */
-    align-items: center;      /* 세로 가운데 */
+    justify-content: center;
+    align-items: center;
 }
 
 /* 제목 */
@@ -27,19 +27,19 @@ section h2 {
     padding: 10px;
 }
 
-/* form을 감싸는 div */
+/* form 박스 */
 section div {
     padding: 20px;
     background-color: #f0f0f0;
     border-radius: 10px;
-    text-align: center;       /* 내부 글자와 버튼 가운데 */
-    width: 500px;             /* 폼 박스 너비 */
+    text-align: center;
+    width: 500px;
 }
 
 /* input, textarea 스타일 */
 section div input[type="text"],
 section div textarea {
-    width: 90%;               /* 입력창 너비 */
+    width: 90%;
     padding: 10px;
     font-size: 16px;
     margin-bottom: 15px;
@@ -49,7 +49,7 @@ section div textarea {
 
 /* 버튼 스타일 */
 section div button {
-    width: 50%;               /* 버튼 너비 */
+    width: 50%;
     padding: 10px;
     font-size: 18px;
     border-radius: 5px;
@@ -63,7 +63,7 @@ section div button:hover {
     background-color: #ff85c1;
 }
 
-/* 리뷰 목록 링크 */
+/* 링크 스타일 */
 section div p {
     padding-top: 10px;
 }
@@ -75,7 +75,7 @@ section div p {
 <section>
     <div>
         <h2>영화 리뷰 등록</h2>
-        <form action="${pageContext.request.contextPath}/review" method="post">
+        <form action="new.jsp" method="post">
             영화 제목:<br>
             <input type="text" name="movieTitle" required><br><br>
             
@@ -85,7 +85,7 @@ section div p {
             <button type="submit">등록</button>
         </form>
         <p>
-            <a href="${pageContext.request.contextPath}/review">리뷰 목록 보기</a>
+            <a href="new.jsp">등록한 리뷰 확인하기</a>
         </p>
     </div>
 </section>

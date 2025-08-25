@@ -1,10 +1,11 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dto.ReviewDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영화 리뷰 목록</title>
+<title>리뷰 목록</title>
 <style>
 * {
     margin: 0;
@@ -28,59 +29,50 @@ section {
     background-color: lightgray;
 }
 
+/* 제목 */
 section h2 {
     margin-bottom: 20px;
     font-size: 28px;
     color: #333;
 }
 
-/* 링크 스타일 */
-section p a {
-    display: inline-block;
+/* 리뷰 박스 */
+.review-box {
+    width: 500px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
     margin-bottom: 20px;
+}
+
+.review-box p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* 구분선 */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+}
+
+/* 링크 버튼 */
+a {
+    display: inline-block;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 10px 20px;
     background-color: #ff69b4;
     color: white;
     border-radius: 5px;
     transition: background-color 0.3s;
+    margin-top: 20px;
 }
 
-section p a:hover {
+a:hover {
     background-color: #ff85c1;
-}
-
-/* 테이블 스타일 */
-table {
-    border-collapse: collapse;
-    width: 80%;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 12px 15px;
-    text-align: center;
-}
-
-th {
-    background-color: #ff69b4;
-    color: white;
-    font-size: 16px;
-}
-
-td {
-    font-size: 15px;
-    color: #333;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #ffe4f1;
 }
 </style>
 </head>
@@ -88,34 +80,26 @@ tr:hover {
 <jsp:include page="header.jsp"></jsp:include>
 
 <section>
-    <h2>영화 리뷰 목록</h2>
-    <p>
-        <a href="index.jsp">리뷰 등록하기</a>
-    </p>
-    
-    <c:choose>
-        <c:when test="${empty reviews}">
-            <p>등록된 리뷰가 없습니다.</p>
-        </c:when>
-        <c:otherwise>
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>영화 제목</th>
-                    <th>리뷰 내용</th>
-                    <th>작성일</th>
-                </tr>
-                <c:forEach var="r" items="${reviews}">
-                    <tr>
-                        <td>${r.id}</td>
-                        <td>${r.movieTitle}</td>
-                        <td>${r.reviewText}</td>
-                        <td>${r.createdAt}</td>
-                    </tr>
-                </c:forEach>
-            </table>
-        </c:otherwise>
-    </c:choose>
+    <h2>리뷰 목록</h2>
+    <%
+        List<ReviewDTO> reviews = (List<ReviewDTO>) request.getAttribute("reviews");
+        if (reviews != null && !reviews.isEmpty()) {
+            for (ReviewDTO r : reviews) {
+    %>
+        <div class="review-box">
+            <p><b>영화 제목:</b> <%= r.getMovieTitle() %></p>
+            <p><b>리뷰 내용:</b> <%= r.getReviewText() %></p>
+            <p><b>작성일:</b> <%= r.getCreatedAt() %></p>
+        </div>
+    <%
+            }
+        } else {
+    %>
+        <p>아직 작성된 리뷰가 없습니다.</p>
+    <%
+        }
+    %>
+    <a href="index.jsp">리뷰 등록하러 가기</a>
 </section>
 
 <jsp:include page="footer.jsp"></jsp:include>
